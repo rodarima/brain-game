@@ -5,6 +5,11 @@
 
 #include "list.h"
 #define NEURON_SIZE	3
+#define FRAME_SLEEP	3
+#define AXON_COLOR	glColor3f(1, 1, 1)
+#define NEURON_1_COLOR	glColor3f(1, 1, 1)
+#define NEURON_2_COLOR	glColor3f(0, 1, 0)
+#define NEURON_3_COLOR	glColor3f(1, 0, 0)
 
 struct point_t
 {
@@ -74,14 +79,14 @@ void neuron_next_state(struct neuron_t *neuron)
 				list_add(&nlist, axon->s);
 
 				nneurons++;
-				if(axon->s->state == 1)
-				{
-					power++;
-				}
-				else if(axon->s->state == 2)
-				{
-					power--;
-				}
+			}
+			if(axon->s->state == 1)
+			{
+				power++;
+			}
+			else if(axon->s->state == 2)
+			{
+				power--;
 			}
 		}
 	}
@@ -141,7 +146,7 @@ void display()
 	int x0, y0, x1, y1;
 	for(node = axons.start; node != NULL; node = node->next)
 	{
-		glColor3f(0.5f, 0.5f, 0.5f);
+		AXON_COLOR;
 		glLoadIdentity();
 		axon = (struct axon_t *) node->ptr;
 		x0 = axon->s->p.x;
@@ -162,11 +167,11 @@ void display()
 		y = neuron->p.y;
 
 		if(neuron->state == 0)
-			glColor3f(.5, .5, .5);
+			NEURON_1_COLOR;
 		else if(neuron->state == 1)
-			glColor3f(.5, 1, .5);
+			NEURON_2_COLOR;
 		else
-			glColor3f(1, .5, .5);
+			NEURON_3_COLOR;
 		
 		glLoadIdentity();
 		//	glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
@@ -201,7 +206,7 @@ void display()
 	}
 
 	frames++;
-	if(frames > round(4.0/game_speed))
+	if(frames > round(FRAME_SLEEP/game_speed))
 	{
 		update_scenario();
 		frames = 0;
@@ -614,6 +619,11 @@ void load_level()
 
 	fclose(level);
 }
+void clear_level()
+{
+	list_empty(&neurons);
+	list_empty(&axons);
+}
 
 void save_level()
 {
@@ -667,6 +677,10 @@ void key_pressed(unsigned char key, int x, int y)
 	else if(key == 's')
 	{
 		save_level();
+	}
+	else if(key == 'c')
+	{
+		clear_level();
 	}
 }
 
