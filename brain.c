@@ -386,26 +386,18 @@ void get_mouse_absolute(int mx, int my, double *rx, double *ry)
 void new_neuron(double rx, double ry, int state)
 {
 
-	struct neuron_t *neuron;
-	if((neuron = find_neuron(rx, ry, NEURON_SIZE*1.5)) == NULL)
+	struct neuron_t *n = malloc(sizeof(struct neuron_t));
+	if(!n)
 	{
-		struct neuron_t *n = malloc(sizeof(struct neuron_t));
-		if(!n)
-		{
-			perror("malloc");
-			exit(1);
-		}
-		n->p.x = NEURON_SIZE*3*round(rx/(NEURON_SIZE*3));
-		n->p.y = NEURON_SIZE*3*round(ry/(NEURON_SIZE*3));
-		n->state = state;
-		n->next_state = 0;
-		list_add(&neurons, n);
-		printf("NEW NEURON ON (%f,%f)\n", n->p.x, n->p.y);
+		perror("malloc");
+		exit(1);
 	}
-	else
-	{
-		printf("Duplicated neuron!");
-	}
+	n->p.x = NEURON_SIZE*3*round(rx/(NEURON_SIZE*3));
+	n->p.y = NEURON_SIZE*3*round(ry/(NEURON_SIZE*3));
+	n->state = state;
+	n->next_state = 0;
+	list_add(&neurons, n);
+	printf("NEW NEURON ON (%f,%f)\n", n->p.x, n->p.y);
 }
 
 int get_index_neuron(struct neuron_t *n)
