@@ -516,19 +516,26 @@ void mouse(int button, int state, int mx, int my)
 		double preX = ( x * width );
 		double preY = ( y * height );
 
+		int modif = glutGetModifiers();
 		double zoomFactor = 1.2;
 		if( button == 3 )
 		{
 			// zoom in
-			width /= zoomFactor;
-			height /= zoomFactor;
+			if(!(modif & GLUT_ACTIVE_CTRL))
+			{
+				width /= zoomFactor;
+				height /= zoomFactor;
+			}
 			game_speed /= zoomFactor;
 		}
 		if( button == 4 )
 		{
 			// zoom out
-			width *= zoomFactor;
-			height *= zoomFactor;
+			if(!(modif & GLUT_ACTIVE_CTRL))
+			{
+				width *= zoomFactor;
+				height *= zoomFactor;
+			}
 			game_speed *= zoomFactor;
 		}
 
