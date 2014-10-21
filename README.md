@@ -1,5 +1,6 @@
-#Juego Brain
+#Purple brain
 2014O20
+
 ##Descripción
 Imagínese que se encuentra en el interior de su mente. Allí puede encontrar un
 montón de diminutas neuronas que se conectan entre sí. De hecho hay tantas y
@@ -67,7 +68,7 @@ o lejos que se encuentre de la escena.
 
 ##Instalación
 Descarge el código del siguiente enlace:
-[Brain en github](https://github.com/rodarima/brain-game)
+[Purple brain en github](https://github.com/rodarima/purple-brain)
 Debe disponer de un sistema GNU/Linux, e instalar los paquetes de openGL y
 freeglut.
 
